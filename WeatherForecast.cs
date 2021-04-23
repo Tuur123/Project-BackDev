@@ -1,6 +1,6 @@
 using System;
 
-namespace Project_BackDev
+namespace BeerApi
 {
     public class WeatherForecast
     {

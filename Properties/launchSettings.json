@@ -4,8 +4,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:18739",
-      "sslPort": 44385
+      "applicationUrl": "http://localhost:7299",
+      "sslPort": 44394
     }
   },
   "profiles": {
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Project_BackDev": {
+    "BeerApi": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

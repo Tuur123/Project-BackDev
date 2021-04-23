@@ -1,6 +1,6 @@
 using System;
 
-namespace Project_BackDev.models
+namespace Project_BackDev.Models
 {
     public class Beer
     {

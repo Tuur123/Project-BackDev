@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace Project_BackDev
+namespace BeerApi
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace Project_BackDev
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Project_BackDev", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BeerApi", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace Project_BackDev
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Project_BackDev v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BeerApi v1"));
             }
 
             app.UseHttpsRedirection();

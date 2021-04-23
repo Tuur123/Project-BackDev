@@ -199,9 +199,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\arthu\\Desktop\\school\\BACKDEV\\Labo\\BACKDEV_REPO\\Project-BackDev\\Project-BackDev.csproj",
-      "projectName": "Project-BackDev",
-      "projectPath": "C:\\Users\\arthu\\Desktop\\school\\BACKDEV\\Labo\\BACKDEV_REPO\\Project-BackDev\\Project-BackDev.csproj",
+      "projectUniqueName": "C:\\Users\\arthu\\Desktop\\school\\BACKDEV\\Labo\\BACKDEV_REPO\\Project-BackDev\\BeerApi.csproj",
+      "projectName": "BeerApi",
+      "projectPath": "C:\\Users\\arthu\\Desktop\\school\\BACKDEV\\Labo\\BACKDEV_REPO\\Project-BackDev\\BeerApi.csproj",
       "packagesPath": "C:\\Users\\arthu\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\arthu\\Desktop\\school\\BACKDEV\\Labo\\BACKDEV_REPO\\Project-BackDev\\obj\\",
       "projectStyle": "PackageReference",

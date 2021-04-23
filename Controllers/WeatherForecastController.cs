@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Project_BackDev.Controllers
+namespace BeerApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
