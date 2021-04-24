@@ -1,4 +1,5 @@
 bin
 db
 obj
-obj/*
+obj\*
+Migrations

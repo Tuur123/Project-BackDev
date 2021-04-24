@@ -1,6 +1,6 @@
 using System;
 
-namespace Project_BackDev.Controllers
+namespace BeerApi.Controllers
 {
     public class BeerController
     {

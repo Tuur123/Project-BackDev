@@ -1,9 +1,9 @@
 using System;
 
-namespace Project_BackDev.Configuration
+namespace BeerApi.Configuration
 {
     public class ConnectionStrings
     {
-        
+        public string SQL { get; set; }
     }
 }
