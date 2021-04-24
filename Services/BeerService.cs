@@ -8,7 +8,30 @@ using BeerApi.Repositories;
 
 namespace BeerApi.Services
 {
-    public class BeerService
+    public interface IBeerService
+    {
+        // Beers
+        Task AddBeer(BeerDTO beer);
+        Task DeleteBeer(Guid beerId);
+        Task<BeerDTO> GetBeer(Guid beerId);
+        Task<List<BeerDTO>> GetBeers();
+        Task UpdateBeer(BeerUpdateDTO beer);
+
+        // Locations
+        Task AddLocation(LocationDTO location);
+        Task DeleteLocation(Guid locationId);
+        Task<LocationDTO> GetLocation(Guid locationId);
+        Task<List<LocationDTO>> GetLocations();
+        Task UpdateLocation(LocationUpdateDTO location);
+
+        // Businesses
+        Task AddBusiness(BusinessDTO business);
+        Task DeleteBusiness(Guid businessId);
+        Task<BusinessDTO> GetBusiness(Guid businessId);
+        Task<List<BusinessDTO>> GetBusinesses();
+        Task UpdateBusiness(BusinessDTO business);
+    }
+    public class BeerService : IBeerService
     {
         private IBeerRepository _beerRepository;
         private ILocationRepository _locationRepository;
