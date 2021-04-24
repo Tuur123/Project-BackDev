@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using BeerApi.Models;
 
 namespace BeerApi.DTO
 {
@@ -8,5 +10,6 @@ namespace BeerApi.DTO
         public string Name { get; set; }
         public double AlchoholPercentage { get; set; }
         public string Brewer { get; set; }
+        public List<int> Businesses { get; set; }
     }
 }
