@@ -17,7 +17,5 @@ namespace BeerApi.Models
 
         [Range(0, 1000)] // geen negatieve huisnummers
         public int HouseNumber { get; set; }
-
-        public Business Business { get; set; }
     }
 }
