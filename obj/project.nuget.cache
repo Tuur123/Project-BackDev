@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "gu7QzSuMAgu9ShnZAIvKnKm/lzB4a12IY1uNtSp7ox42zI/QO9zW2oAUnUH5sdHigba1Yszpr8A0wU6Xlb4Bkw==",
+  "dgSpecHash": "1n+g57CjamNBpmb5QDPzcs7Rje5FxN9BUetQHntSq859uVkTnTnrNV+f2sz02p9v8dZWzo9YXKp5jognt0nneA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\arthu\\Desktop\\school\\BACKDEV\\Labo\\BACKDEV_REPO\\Project-BackDev\\BeerApi.csproj",
+  "projectFilePath": "c:\\Users\\arthu\\Desktop\\school\\BACKDEV\\Labo\\BACKDEV_REPO\\Project-BackDev\\BeerApi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\arthu\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\arthu\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\arthu\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\arthu\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning\\5.0.0-preview.2\\microsoft.aspnetcore.mvc.versioning.5.0.0-preview.2.nupkg.sha512",
     "C:\\Users\\arthu\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
@@ -72,7 +74,7 @@
     "C:\\Users\\arthu\\.nuget\\packages\\system.private.datacontractserialization\\4.3.0\\system.private.datacontractserialization.4.3.0.nupkg.sha512",
     "C:\\Users\\arthu\\.nuget\\packages\\system.private.uri\\4.3.2\\system.private.uri.4.3.2.nupkg.sha512",
     "C:\\Users\\arthu\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
-    "C:\\Users\\arthu\\.nuget\\packages\\system.reflection.emit\\4.3.0\\system.reflection.emit.4.3.0.nupkg.sha512",
+    "C:\\Users\\arthu\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
     "C:\\Users\\arthu\\.nuget\\packages\\system.reflection.emit.ilgeneration\\4.3.0\\system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
     "C:\\Users\\arthu\\.nuget\\packages\\system.reflection.emit.lightweight\\4.3.0\\system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
     "C:\\Users\\arthu\\.nuget\\packages\\system.reflection.extensions\\4.3.0\\system.reflection.extensions.4.3.0.nupkg.sha512",

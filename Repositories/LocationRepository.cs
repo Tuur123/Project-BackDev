@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using BeerApi.DataContext;
 using BeerApi.Models;
 
-namespace Project_BackDev.Repositories
+namespace BeerApi.Repositories
 {
     public interface ILocationRepository
     {
