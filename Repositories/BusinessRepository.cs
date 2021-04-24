@@ -13,7 +13,7 @@ namespace BeerApi.Repositories
     public interface IBusinessRepository
     {
         Task<Business> AddBusiness(Business business);
-        Task<Business> DeleteBusiness(int businessId);
+        Task DeleteBusiness(int businessId);
         Task<Business> GetBusiness(int businessId);
         Task<List<Business>> GetBusinesses();
         Task<Business> UpdateBusiness(Business business, int businessId);
@@ -28,14 +28,23 @@ namespace BeerApi.Repositories
             _context = context;
         }
 
+        public async Task<Business> GetBusiness(int businessId)
+        {
+            Business business = await _context.Businesses.Where(b => b.BusinessId == businessId).SingleOrDefaultAsync();
+
+            if (business != null)
+            {
+                return business;
+            }
+            else
+            {
+                throw new Exception("Business not found.");
+            }
+        }
+
         public async Task<List<Business>> GetBusinesses()
         {
             return await _context.Businesses.ToListAsync();
-        }
-
-        public async Task<Business> GetBusiness(int businessId)
-        {
-            return await _context.Businesses.Where(b => b.BusinessId == businessId).SingleOrDefaultAsync();
         }
 
         public async Task<Business> AddBusiness(Business business)
@@ -64,7 +73,7 @@ namespace BeerApi.Repositories
             }
         }
 
-        public async Task<Business> DeleteBusiness(int businessId)
+        public async Task DeleteBusiness(int businessId)
         {
             Business deleteBusiness = await _context.Businesses.Where(b => b.BusinessId == businessId).SingleOrDefaultAsync();
 
@@ -72,8 +81,6 @@ namespace BeerApi.Repositories
             {
                 _context.Businesses.Remove(deleteBusiness);
                 await _context.SaveChangesAsync();
-
-                return deleteBusiness;
             }
             else
             {

@@ -13,7 +13,7 @@ namespace BeerApi.Repositories
     public interface IBeerRepository
     {
         Task<Beer> AddBeer(Beer beer);
-        Task<Beer> DeleteBeer(int beerId);
+        Task DeleteBeer(int beerId);
         Task<Beer> GetBeer(int beerId);
         Task<List<Beer>> GetBeers();
         Task<Beer> UpdateBeer(Beer beer, int beerId);
@@ -28,14 +28,23 @@ namespace BeerApi.Repositories
             _context = context;
         }
 
+        public async Task<Beer> GetBeer(int beerId)
+        {
+            Beer beer = await _context.Beers.Where(b => b.BeerId == beerId).SingleOrDefaultAsync();
+
+            if (beer != null)
+            {
+                return beer;
+            }
+            else
+            {
+                throw new Exception("Beer not found.");
+            }
+        }
+
         public async Task<List<Beer>> GetBeers()
         {
             return await _context.Beers.ToListAsync();
-        }
-
-        public async Task<Beer> GetBeer(int beerId)
-        {
-            return await _context.Beers.Where(b => b.BeerId == beerId).SingleOrDefaultAsync();
         }
 
         public async Task<Beer> AddBeer(Beer beer)
@@ -63,7 +72,7 @@ namespace BeerApi.Repositories
             }
         }
 
-        public async Task<Beer> DeleteBeer(int beerId)
+        public async Task DeleteBeer(int beerId)
         {
             Beer deleteBeer = await _context.Beers.Where(b => b.BeerId == beerId).SingleOrDefaultAsync();
 
@@ -71,7 +80,6 @@ namespace BeerApi.Repositories
             {
                 _context.Beers.Remove(deleteBeer);
                 await _context.SaveChangesAsync();
-                return deleteBeer;
             }
             else
             {
