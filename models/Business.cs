@@ -6,7 +6,7 @@ namespace BeerApi.Models
 {
     public class Business
     {
-        public int BusinessId { get; set; }
+        public Guid BusinessId { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -16,7 +16,7 @@ namespace BeerApi.Models
 
         [EmailAddress]
         public string Email { get; set; }
-        public int LocationId { get; set; }
+        public Guid LocationId { get; set; }
         public virtual List<BusinessBeer> BusinessBeers {get; set;}
     }
 }

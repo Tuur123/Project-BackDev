@@ -6,10 +6,18 @@ namespace BeerApi.DTO
 {
     public class BeerDTO
     {
-        public int BeerId { get; set; }
         public string Name { get; set; }
         public double AlchoholPercentage { get; set; }
         public string Brewer { get; set; }
-        public List<int> Businesses { get; set; }
+        public List<Guid> Businesses { get; set; }
+    }
+
+    public class BeerUpdateDTO
+    {
+        public Guid BeerId { get; set; }
+        public string Name { get; set; }
+        public double AlchoholPercentage { get; set; }
+        public string Brewer { get; set; }
+        public List<Guid> Businesses { get; set; }
     }
 }

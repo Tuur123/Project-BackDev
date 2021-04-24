@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1n+g57CjamNBpmb5QDPzcs7Rje5FxN9BUetQHntSq859uVkTnTnrNV+f2sz02p9v8dZWzo9YXKp5jognt0nneA==",
+  "dgSpecHash": "Nn8beNd3ier/MfIW5UaDrGyzIX34Heru7lVgNyBFvB4SUCu/Lk3/i8GSEz/qwzS1oe+mWnLDnmTsh6OUixLljQ==",
   "success": true,
-  "projectFilePath": "c:\\Users\\arthu\\Desktop\\school\\BACKDEV\\Labo\\BACKDEV_REPO\\Project-BackDev\\BeerApi.csproj",
+  "projectFilePath": "C:\\Users\\arthu\\Desktop\\school\\BACKDEV\\Labo\\BACKDEV_REPO\\Project-BackDev\\BeerApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\arthu\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\arthu\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

@@ -14,11 +14,11 @@ namespace BeerApi.Repositories
 {
     public interface ILocationRepository
     {
-        Task<Location> AddLocation(Location location);
-        Task DeleteLocation(int locationId);
-        Task<Location> GetLocation(int locationId);
+        Task AddLocation(Location location);
+        Task DeleteLocation(Guid locationId);
+        Task<Location> GetLocation(Guid locationId);
         Task<List<Location>> GetLocations();
-        Task<Location> UpdateLocation(Location location, int locationId);
+        Task UpdateLocation(Location location);
     }
 
     public class LocationRepository : ILocationRepository
@@ -30,18 +30,9 @@ namespace BeerApi.Repositories
             _context = context;
         }
 
-        public async Task<Location> GetLocation(int locationId)
+        public async Task<Location> GetLocation(Guid locationId)
         {
-            Location loc = await _context.Locations.Where(l => l.LocationId == locationId).SingleOrDefaultAsync();
-
-            if (loc != null)
-            {
-                return loc;
-            }
-            else
-            {
-                throw new Exception("Location not found.");
-            }
+            return await _context.Locations.Where(l => l.LocationId == locationId).SingleOrDefaultAsync();
         }
 
         public async Task<List<Location>> GetLocations()
@@ -49,45 +40,29 @@ namespace BeerApi.Repositories
             return await _context.Locations.ToListAsync();
         }
 
-        public async Task<Location> AddLocation(Location location)
+        public async Task AddLocation(Location location)
         {
             await _context.Locations.AddAsync(location);
             await _context.SaveChangesAsync();
-
-            return location;
         }
 
-        public async Task<Location> UpdateLocation(Location location, int locationId)
+        public async Task UpdateLocation(Location location)
         {
-            Location updateLocation = await _context.Locations.Where(l => l.LocationId == locationId).SingleOrDefaultAsync();
-            if (updateLocation != null)
-            {
-                updateLocation.City = location.City;
-                updateLocation.HouseNumber = location.HouseNumber;
-                updateLocation.Postcode = location.Postcode;
-                updateLocation.Street = location.Street;
-                await _context.SaveChangesAsync();
+            Location updateLocation = await _context.Locations.Where(l => l.LocationId == location.LocationId).SingleOrDefaultAsync();
 
-                return updateLocation;
-            }
-            else
-            {
-                throw new Exception("Location to update not found.");
-            }
+            updateLocation.City = location.City;
+            updateLocation.HouseNumber = location.HouseNumber;
+            updateLocation.Postcode = location.Postcode;
+            updateLocation.Street = location.Street;
+
+            await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteLocation(int locationId)
+        public async Task DeleteLocation(Guid locationId)
         {
             Location deleteLocation = await _context.Locations.Where(l => l.LocationId == locationId).SingleOrDefaultAsync();
-            if (deleteLocation != null)
-            {
-                _context.Locations.Remove(deleteLocation);
-                await _context.SaveChangesAsync();
-            }
-            else
-            {
-                throw new Exception("Location to delete not found.");
-            }
+            _context.Locations.Remove(deleteLocation);
+            await _context.SaveChangesAsync();
         }
     }
 }

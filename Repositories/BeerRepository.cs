@@ -12,11 +12,11 @@ namespace BeerApi.Repositories
 {
     public interface IBeerRepository
     {
-        Task<Beer> AddBeer(Beer beer);
-        Task DeleteBeer(int beerId);
-        Task<Beer> GetBeer(int beerId);
+        Task AddBeer(Beer beer);
+        Task DeleteBeer(Guid beerId);
+        Task<Beer> GetBeer(Guid beerId);
         Task<List<Beer>> GetBeers();
-        Task<Beer> UpdateBeer(Beer beer, int beerId);
+        Task UpdateBeer(Beer beer);
     }
 
     public class BeerRepository : IBeerRepository
@@ -28,18 +28,9 @@ namespace BeerApi.Repositories
             _context = context;
         }
 
-        public async Task<Beer> GetBeer(int beerId)
+        public async Task<Beer> GetBeer(Guid beerId)
         {
-            Beer beer = await _context.Beers.Where(b => b.BeerId == beerId).SingleOrDefaultAsync();
-
-            if (beer != null)
-            {
-                return beer;
-            }
-            else
-            {
-                throw new Exception("Beer not found.");
-            }
+            return await _context.Beers.Where(b => b.BeerId == beerId).SingleOrDefaultAsync();
         }
 
         public async Task<List<Beer>> GetBeers()
@@ -47,44 +38,28 @@ namespace BeerApi.Repositories
             return await _context.Beers.ToListAsync();
         }
 
-        public async Task<Beer> AddBeer(Beer beer)
+        public async Task AddBeer(Beer beer)
         {
             await _context.Beers.AddAsync(beer);
             await _context.SaveChangesAsync();
-            return beer;
         }
 
-        public async Task<Beer> UpdateBeer(Beer beer, int beerId)
+        public async Task UpdateBeer(Beer beer)
         {
-            Beer updateBeer = await _context.Beers.Where(b => b.BeerId == beerId).SingleOrDefaultAsync();
-            if (updateBeer != null)
-            {
-                updateBeer.AlchoholPercentage = beer.AlchoholPercentage;
-                updateBeer.Brewer = beer.Brewer;
-                updateBeer.Name = beer.Name;
+            Beer updateBeer = await _context.Beers.Where(b => b.BeerId == beer.BeerId).SingleOrDefaultAsync();
+            
+            updateBeer.AlchoholPercentage = beer.AlchoholPercentage;
+            updateBeer.Brewer = beer.Brewer;
+            updateBeer.Name = beer.Name;
 
-                await _context.SaveChangesAsync();
-                return updateBeer;
-            }
-            else
-            {
-                throw new Exception("Beer to update not found.");
-            }
+            await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteBeer(int beerId)
+        public async Task DeleteBeer(Guid beerId)
         {
             Beer deleteBeer = await _context.Beers.Where(b => b.BeerId == beerId).SingleOrDefaultAsync();
-
-            if (deleteBeer != null)
-            {
-                _context.Beers.Remove(deleteBeer);
-                await _context.SaveChangesAsync();
-            }
-            else
-            {
-                throw new Exception("Beer to delete not found.");
-            }
+            _context.Beers.Remove(deleteBeer);
+            await _context.SaveChangesAsync();
         }
     }
 }

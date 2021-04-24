@@ -12,11 +12,11 @@ namespace BeerApi.Repositories
 {
     public interface IBusinessRepository
     {
-        Task<Business> AddBusiness(Business business);
-        Task DeleteBusiness(int businessId);
-        Task<Business> GetBusiness(int businessId);
+        Task AddBusiness(Business business);
+        Task DeleteBusiness(Guid businessId);
+        Task<Business> GetBusiness(Guid businessId);
         Task<List<Business>> GetBusinesses();
-        Task<Business> UpdateBusiness(Business business, int businessId);
+        Task UpdateBusiness(Business business);
     }
 
     public class BusinessRepository : IBusinessRepository
@@ -28,18 +28,10 @@ namespace BeerApi.Repositories
             _context = context;
         }
 
-        public async Task<Business> GetBusiness(int businessId)
+        public async Task<Business> GetBusiness(Guid businessId)
         {
             Business business = await _context.Businesses.Where(b => b.BusinessId == businessId).SingleOrDefaultAsync();
-
-            if (business != null)
-            {
-                return business;
-            }
-            else
-            {
-                throw new Exception("Business not found.");
-            }
+            return business;
         }
 
         public async Task<List<Business>> GetBusinesses()
@@ -47,45 +39,31 @@ namespace BeerApi.Repositories
             return await _context.Businesses.ToListAsync();
         }
 
-        public async Task<Business> AddBusiness(Business business)
+        public async Task AddBusiness(Business business)
         {
             await _context.Businesses.AddAsync(business);
             await _context.SaveChangesAsync();
-            return business;
         }
 
-        public async Task<Business> UpdateBusiness(Business business, int businessId)
+        public async Task UpdateBusiness(Business business)
         {
-            Business updateBusiness = await _context.Businesses.Where(b => b.BusinessId == businessId).SingleOrDefaultAsync();
-            if (updateBusiness != null)
-            {
-                updateBusiness.Email = business.Email;
-                updateBusiness.LocationId = business.LocationId;
-                updateBusiness.Name = business.Name;
-                updateBusiness.Type = business.Type;
-                updateBusiness.BusinessBeers = business.BusinessBeers;
-                await _context.SaveChangesAsync();
-                return updateBusiness;
-            }
-            else
-            {
-                throw new Exception("Business to update not found.");
-            }
+            Business updateBusiness = await _context.Businesses.Where(b => b.BusinessId == business.BusinessId).SingleOrDefaultAsync();
+
+            updateBusiness.Email = business.Email;
+            updateBusiness.LocationId = business.LocationId;
+            updateBusiness.Name = business.Name;
+            updateBusiness.Type = business.Type;
+            updateBusiness.BusinessBeers = business.BusinessBeers;
+
+            await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteBusiness(int businessId)
+        public async Task DeleteBusiness(Guid businessId)
         {
             Business deleteBusiness = await _context.Businesses.Where(b => b.BusinessId == businessId).SingleOrDefaultAsync();
 
-            if (deleteBusiness != null)
-            {
-                _context.Businesses.Remove(deleteBusiness);
-                await _context.SaveChangesAsync();
-            }
-            else
-            {
-                throw new Exception("Business to delete not found.");
-            }
+            _context.Businesses.Remove(deleteBusiness);
+            await _context.SaveChangesAsync();
         }
     }
 }

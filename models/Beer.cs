@@ -6,7 +6,7 @@ namespace BeerApi.Models
 {
     public class Beer
     {
-        public int BeerId {get; set;}
+        public Guid BeerId {get; set;}
 
         [Required]
         public string Name { get; set; }

@@ -41,36 +41,52 @@ namespace BeerApi.DataContext
             modelBuilder.Entity<BusinessBeer>().HasKey(s => new { s.BeerId, s.BusinessId });
 
             #region BeerSeed
-            modelBuilder.Entity<Beer>().HasData(new Beer { BeerId = 1, Name = "Jupiler", AlchoholPercentage = 3.3, Brewer = "Piedbœuf" });
-            modelBuilder.Entity<Beer>().HasData(new Beer { BeerId = 2, Name = "Duvel", AlchoholPercentage = 9.5, Brewer = "Duvel Moortgat" });
-            modelBuilder.Entity<Beer>().HasData(new Beer { BeerId = 3, Name = "Omer", AlchoholPercentage = 8, Brewer = "Omer Vander Ghinste" });
-            modelBuilder.Entity<Beer>().HasData(new Beer { BeerId = 4, Name = "La Chouffe", AlchoholPercentage = 8, Brewer = "AChouffe" });
+
+            Guid jup = Guid.NewGuid();
+            Guid duv = Guid.NewGuid();
+            Guid omer = Guid.NewGuid();
+            Guid chou = Guid.NewGuid();
+
+            modelBuilder.Entity<Beer>().HasData(new Beer { BeerId = jup, Name = "Jupiler", AlchoholPercentage = 3.3, Brewer = "Piedbœuf" });
+            modelBuilder.Entity<Beer>().HasData(new Beer { BeerId = duv, Name = "Duvel", AlchoholPercentage = 9.5, Brewer = "Duvel Moortgat" });
+            modelBuilder.Entity<Beer>().HasData(new Beer { BeerId = omer, Name = "Omer", AlchoholPercentage = 8, Brewer = "Omer Vander Ghinste" });
+            modelBuilder.Entity<Beer>().HasData(new Beer { BeerId = chou, Name = "La Chouffe", AlchoholPercentage = 8, Brewer = "AChouffe" });
             #endregion
 
             #region LocationSeed
-            modelBuilder.Entity<Location>().HasData(new Location { LocationId = 1, City = "Antwerpen", Postcode = 2000 });
-            modelBuilder.Entity<Location>().HasData(new Location { LocationId = 2, City = "Brugge", Postcode = 8000 });
-            modelBuilder.Entity<Location>().HasData(new Location { LocationId = 3, City = "Kortijk", Postcode = 8500 });
+
+            Guid ant = Guid.NewGuid();
+            Guid bru = Guid.NewGuid();
+            Guid kor = Guid.NewGuid();
+
+            modelBuilder.Entity<Location>().HasData(new Location { LocationId = ant, City = "Antwerpen", Postcode = 2000 });
+            modelBuilder.Entity<Location>().HasData(new Location { LocationId = bru, City = "Brugge", Postcode = 8000 });
+            modelBuilder.Entity<Location>().HasData(new Location { LocationId = kor, City = "Kortijk", Postcode = 8500 });
             #endregion
 
             #region BusinessSeed
-            modelBuilder.Entity<Business>().HasData(new Business { BusinessId = 1, LocationId = 1, Name = "Barbier", Type = "Cafe"});
-            modelBuilder.Entity<Business>().HasData(new Business { BusinessId = 2, LocationId = 2, Name = "'t Burgs Beertje", Type = "Restaurant"});
-            modelBuilder.Entity<Business>().HasData(new Business { BusinessId = 3, LocationId = 3, Name = "'t Kanon", Type = "Cafe"});
+
+            Guid bar = Guid.NewGuid();
+            Guid bur = Guid.NewGuid();
+            Guid kan = Guid.NewGuid();
+
+            modelBuilder.Entity<Business>().HasData(new Business { BusinessId = bar, LocationId = ant, Name = "Barbier", Type = "Cafe" });
+            modelBuilder.Entity<Business>().HasData(new Business { BusinessId = bur, LocationId = bru, Name = "'t Burgs Beertje", Type = "Restaurant" });
+            modelBuilder.Entity<Business>().HasData(new Business { BusinessId = kan, LocationId = kor, Name = "'t Kanon", Type = "Cafe" });
             #endregion
 
             #region BusinessBeerSeed
-            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = 1, BusinessId = 1 });
-            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = 2, BusinessId = 1 });
-            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = 3, BusinessId = 1 });
-            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = 4, BusinessId = 1 });
+            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = jup, BusinessId = bar });
+            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = duv, BusinessId = bar });
+            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = omer, BusinessId = bar });
+            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = chou, BusinessId = bar });
 
-            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = 2, BusinessId = 2 });
-            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = 3, BusinessId = 2 });
-            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = 4, BusinessId = 2 });
+            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = duv, BusinessId = bur });
+            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = omer, BusinessId = bur });
+            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = chou, BusinessId = bur });
 
-            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = 3, BusinessId = 3 });
-            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = 4, BusinessId = 3 });
+            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = omer, BusinessId = kan });
+            modelBuilder.Entity<BusinessBeer>().HasData(new BusinessBeer { BeerId = chou, BusinessId = kan });
             #endregion
         }
     }
