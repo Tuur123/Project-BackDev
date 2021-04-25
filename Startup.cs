@@ -15,6 +15,8 @@ using Microsoft.OpenApi.Models;
 
 using BeerApi.Configuration;
 using BeerApi.DataContext;
+using BeerApi.Repositories;
+using BeerApi.Services;
 
 namespace BeerApi
 {
@@ -36,8 +38,15 @@ namespace BeerApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BeerApi", Version = "v1" });
             });
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddDbContext<BeerContext>();
             services.AddTransient<IBeerContext, BeerContext>();
+
+            services.AddTransient<IBeerService, BeerService>();
+            services.AddTransient<IBeerRepository, BeerRepository>();
+            services.AddTransient<ILocationRepository, LocationRepository>();
+            services.AddTransient<IBusinessRepository, BusinessRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

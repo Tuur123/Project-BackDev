@@ -38,7 +38,7 @@ namespace BeerApi.DataContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BusinessBeer>().HasKey(s => new { s.BeerId, s.BusinessId });
+            modelBuilder.Entity<BusinessBeer>().HasKey(b => new { b.BeerId, b.BusinessId });
 
             #region BeerSeed
 

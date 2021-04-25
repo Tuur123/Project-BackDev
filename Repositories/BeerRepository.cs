@@ -30,12 +30,12 @@ namespace BeerApi.Repositories
 
         public async Task<Beer> GetBeer(Guid beerId)
         {
-            return await _context.Beers.Where(b => b.BeerId == beerId).SingleOrDefaultAsync();
+            return await _context.Beers.Where(b => b.BeerId == beerId).Include(b => b.BusinessBeers).SingleOrDefaultAsync();
         }
 
         public async Task<List<Beer>> GetBeers()
         {
-            return await _context.Beers.ToListAsync();
+            return await _context.Beers.Include(b => b.BusinessBeers).ToListAsync();
         }
 
         public async Task AddBeer(Beer beer)

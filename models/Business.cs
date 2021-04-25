@@ -17,6 +17,6 @@ namespace BeerApi.Models
         [EmailAddress]
         public string Email { get; set; }
         public Guid LocationId { get; set; }
-        public virtual List<BusinessBeer> BusinessBeers {get; set;}
+        public List<BusinessBeer> BusinessBeers { get; set; }
     }
 }

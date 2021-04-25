@@ -103,7 +103,7 @@ namespace BeerApi.Controllers
         #region Businesses
 
         [HttpGet]
-        [Route("businesses/{beerId}")]
+        [Route("businesses/{businessId}")]
         public async Task<ActionResult<BusinessDTO>> GetBusiness(Guid businessId)
         {
             try

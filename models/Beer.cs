@@ -15,6 +15,6 @@ namespace BeerApi.Models
         [Range(0, 70)]
         public double AlchoholPercentage { get; set; }
         public string Brewer { get; set; }
-        public virtual List<BusinessBeer> BusinessBeers { get; set; }
+        public List<BusinessBeer> BusinessBeers { get; set; }
     }
 }

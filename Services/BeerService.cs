@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -76,14 +77,7 @@ namespace BeerApi.Services
             try
             {
                 Beer newBeer = _mapper.Map<Beer>(beer);
-
-                newBeer.BusinessBeers = new List<BusinessBeer>();
                 newBeer.BeerId = Guid.NewGuid();
-
-                foreach (Guid businessId in beer.Businesses)
-                {
-                    newBeer.BusinessBeers.Add(new BusinessBeer() { BusinessId = businessId, BeerId = newBeer.BeerId });
-                }
 
                 await _beerRepository.AddBeer(newBeer);
             }
@@ -201,7 +195,7 @@ namespace BeerApi.Services
         public async Task<List<BusinessDTO>> GetBusinesses()
         {
             try
-            {
+            {          
                 return _mapper.Map<List<BusinessDTO>>(await _businessRepository.GetBusinesses());
             }
             catch (Exception)
@@ -215,14 +209,7 @@ namespace BeerApi.Services
             try
             {
                 Business newBusiness = _mapper.Map<Business>(business);
-
-                newBusiness.BusinessBeers = new List<BusinessBeer>();
                 newBusiness.BusinessId = Guid.NewGuid();
-
-                foreach (Guid beerId in business.Beers)
-                {
-                    newBusiness.BusinessBeers.Add(new BusinessBeer() { BeerId = beerId, BusinessId = newBusiness.BusinessId });
-                }
 
                 await _businessRepository.AddBusiness(newBusiness);
             }
