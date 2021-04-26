@@ -41,7 +41,6 @@ namespace BeerApi.DataContext
             modelBuilder.Entity<BusinessBeer>().HasKey(b => new { b.BeerId, b.BusinessId });
 
             #region BeerSeed
-
             Guid jup = Guid.NewGuid();
             Guid duv = Guid.NewGuid();
             Guid omer = Guid.NewGuid();
@@ -54,7 +53,6 @@ namespace BeerApi.DataContext
             #endregion
 
             #region LocationSeed
-
             Guid ant = Guid.NewGuid();
             Guid bru = Guid.NewGuid();
             Guid kor = Guid.NewGuid();
@@ -65,7 +63,6 @@ namespace BeerApi.DataContext
             #endregion
 
             #region BusinessSeed
-
             Guid bar = Guid.NewGuid();
             Guid bur = Guid.NewGuid();
             Guid kan = Guid.NewGuid();

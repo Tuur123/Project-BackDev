@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace BeerApi.Models
 {
@@ -16,7 +17,13 @@ namespace BeerApi.Models
 
         [EmailAddress]
         public string Email { get; set; }
+
+        // location relationship
+        [JsonIgnore]
         public Guid LocationId { get; set; }
+        public Location Location { get; set; }
+
+        // BusinessBeer relationship
         public List<BusinessBeer> BusinessBeers { get; set; }
     }
 }

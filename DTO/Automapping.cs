@@ -9,10 +9,12 @@ namespace BeerApi.DTO
         public Automapping()
         {
             CreateMap<Beer, BeerDTO>();
+            CreateMap<BeerDTO, Beer>();
+            CreateMap<BusinessBeer, BusinessBeerDTO>();
             CreateMap<Location, LocationDTO>();
+            CreateMap<LocationDTO, Location>();
             CreateMap<Business, BusinessDTO>();
-            CreateMap<Beer, BeerUpdateDTO>();
-            CreateMap<Location, LocationUpdateDTO>();
+            CreateMap<BusinessDTO, Business>();
         }
     }
 }
