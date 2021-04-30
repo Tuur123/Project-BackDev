@@ -70,8 +70,8 @@ namespace BeerApi.Controllers
         }
 
         [HttpPut]
-        [Route("beers/{beerId}")]
-        public async Task<ActionResult> UpdateBeer(BeerUpdateDTO beer)
+        [Route("beers")]
+        public async Task<ActionResult> UpdateBeer(BeerDTO beer)
         {
             try
             {
@@ -146,7 +146,7 @@ namespace BeerApi.Controllers
         }
 
         [HttpPut]
-        [Route("businesses/{businessId}")]
+        [Route("businesses")]
         public async Task<ActionResult> UpdateBusiness(BusinessDTO business)
         {
             try
@@ -223,7 +223,7 @@ namespace BeerApi.Controllers
 
         [HttpPut]
         [Route("locations/{locationId}")]
-        public async Task<ActionResult> UpdateLocation(LocationUpdateDTO location)
+        public async Task<ActionResult> UpdateLocation(Location location)
         {
             try
             {

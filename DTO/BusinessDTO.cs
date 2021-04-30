@@ -10,6 +10,6 @@ namespace BeerApi.DTO
         public string Type { get; set; }
         public string Email { get; set; }
         public Location Location { get; set; }
-        public List<BusinessBeerDTO> BusinessBeers { get; set; }
+        public List<Beer> Beers { get; set; }
     }
 }

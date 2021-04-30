@@ -51,9 +51,7 @@ namespace BeerApi.Repositories
             Location updateLocation = await _context.Locations.Where(l => l.LocationId == location.LocationId).SingleOrDefaultAsync();
 
             updateLocation.City = location.City;
-            updateLocation.HouseNumber = location.HouseNumber;
             updateLocation.Postcode = location.Postcode;
-            updateLocation.Street = location.Street;
 
             await _context.SaveChangesAsync();
         }

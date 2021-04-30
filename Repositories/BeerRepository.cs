@@ -46,11 +46,12 @@ namespace BeerApi.Repositories
 
         public async Task UpdateBeer(Beer beer)
         {
-            Beer updateBeer = await _context.Beers.Where(b => b.BeerId == beer.BeerId).SingleOrDefaultAsync();
-            
-            updateBeer.AlchoholPercentage = beer.AlchoholPercentage;
-            updateBeer.Brewer = beer.Brewer;
-            updateBeer.Name = beer.Name;
+            Beer beerToUpdate = await _context.Beers.Where(b => b.BeerId == beer.BeerId).SingleOrDefaultAsync();
+
+            beerToUpdate.AlchoholPercentage = beer.AlchoholPercentage;
+            beerToUpdate.Brewer = beer.Brewer;
+            beerToUpdate.Name = beer.Name;
+            beerToUpdate.BusinessBeers = beer.BusinessBeers;
 
             await _context.SaveChangesAsync();
         }

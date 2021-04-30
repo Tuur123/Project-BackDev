@@ -13,9 +13,5 @@ namespace BeerApi.Models
 
         [Required]
         public int Postcode { get; set; }
-        public string Street { get; set; }
-
-        [Range(0, 1000)] // geen negatieve huisnummers
-        public int HouseNumber { get; set; }
     }
 }

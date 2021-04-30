@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace BeerApi.Models
 {
@@ -15,6 +16,9 @@ namespace BeerApi.Models
         [Range(0, 70)]
         public double AlchoholPercentage { get; set; }
         public string Brewer { get; set; }
-        public List<BusinessBeer> BusinessBeers { get; set; }
+
+        // BusinessBeer relationship
+        [JsonIgnore]
+        public List<BusinessBeer> BusinessBeers {get; set;}
     }
 }
