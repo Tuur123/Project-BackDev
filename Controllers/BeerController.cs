@@ -132,7 +132,7 @@ namespace BeerApi.Controllers
 
         [HttpPost]
         [Route("businesses")]
-        public async Task<ActionResult> AddBusiness(BusinessDTO business)
+        public async Task<ActionResult> AddBusiness(AddBusinessDTO business)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace BeerApi.Controllers
 
         [HttpPut]
         [Route("businesses")]
-        public async Task<ActionResult> UpdateBusiness(BusinessDTO business)
+        public async Task<ActionResult> UpdateBusiness(UpdateBusinessDTO business)
         {
             try
             {

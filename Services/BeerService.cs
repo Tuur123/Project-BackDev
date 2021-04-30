@@ -18,19 +18,19 @@ namespace BeerApi.Services
         Task<List<BeerDTO>> GetBeers();
         Task UpdateBeer(BeerDTO beer);
 
+        // Businesses
+        Task AddBusiness(AddBusinessDTO business);
+        Task DeleteBusiness(Guid businessId);
+        Task<BusinessDTO> GetBusiness(Guid businessId);
+        Task<List<BusinessDTO>> GetBusinesses();
+        Task UpdateBusiness(UpdateBusinessDTO business);
+
         // Locations
         Task AddLocation(LocationDTO location);
         Task DeleteLocation(Guid locationId);
         Task<LocationDTO> GetLocation(Guid locationId);
         Task<List<LocationDTO>> GetLocations();
         Task UpdateLocation(Location location);
-
-        // Businesses
-        Task AddBusiness(BusinessDTO business);
-        Task DeleteBusiness(Guid businessId);
-        Task<BusinessDTO> GetBusiness(Guid businessId);
-        Task<List<BusinessDTO>> GetBusinesses();
-        Task UpdateBusiness(BusinessDTO business);
     }
     public class BeerService : IBeerService
     {
@@ -87,10 +87,9 @@ namespace BeerApi.Services
 
         public async Task UpdateBeer(BeerDTO beer)
         {
-            Beer updateBeer = _mapper.Map<Beer>(beer);
-
             try
             {
+                Beer updateBeer = _mapper.Map<Beer>(beer);
                 await _beerRepository.UpdateBeer(updateBeer);
             }
             catch (Exception)
@@ -120,11 +119,10 @@ namespace BeerApi.Services
                 Business business = await _businessRepository.GetBusiness(businessId);
                 BusinessDTO businessDTO = _mapper.Map<BusinessDTO>(business);
                 businessDTO.Beers = new List<Beer>();
-                
+
                 foreach (BusinessBeer busBeer in business.BusinessBeers)
                 {
-                    Beer beer = await _beerRepository.GetBeer(busBeer.BeerId);
-                    businessDTO.Beers.Append(beer);
+                    businessDTO.Beers.Add(await _beerRepository.GetBeer(busBeer.BeerId));
                 }
 
                 return businessDTO;
@@ -137,59 +135,66 @@ namespace BeerApi.Services
 
         public async Task<List<BusinessDTO>> GetBusinesses()
         {
-            // try
-            // {
-            //     List<Business> businesses = await _businessRepository.GetBusinesses();
-            //     List<BusinessDTO> businessDTOs = _mapper.Map<List<BusinessDTO>>(businesses);
-
-            //     for (int i = 0; i < businesses.Count; i++)
-            //     {
-            //         businessDTOs[i].Beers = new List<Beer>();
-            //         foreach (BusinessBeer busBeer in businesses[i].BusinessBeers)
-            //         {
-            //             businessDTOs[i].Beers.Append(await _beerRepository.GetBeer(busBeer.BeerId));
-            //         }
-            //     }
-
-            //     return businessDTOs;
-            // }
-            // catch (Exception)
-            // {
-            //     throw;
-            // }
-            return null;
-        }
-
-        public async Task AddBusiness(BusinessDTO business)
-        {
-            // try
-            // {
-            //     Guid newBusinessGuid = Guid.NewGuid();
-            //     List<BusinessBeer> businessBeers = new List<BusinessBeer>();
-
-            //     foreach (BusinessBeerDTO busBeer in business.BusinessBeers)
-            //     {   
-            //         businessBeers.Add(new BusinessBeer {BeerId = busBeer.Beer.BeerId, BusinessId = newBusinessGuid });
-            //     }
-
-            //     Business newBusiness = _mapper.Map<Business>(business);
-            //     newBusiness.BusinessId = newBusinessGuid;
-
-            //     await _businessRepository.AddBusiness(newBusiness);
-            // }
-            // catch (Exception)
-            // {
-            //     throw;
-            // }
-        }
-
-        public async Task UpdateBusiness(BusinessDTO business)
-        {
-
-            Business updateBusiness = _mapper.Map<Business>(business);
-
             try
             {
+                List<Business> businesses = await _businessRepository.GetBusinesses();
+                List<BusinessDTO> businessDTOs = _mapper.Map<List<BusinessDTO>>(businesses);
+
+                for (int i = 0; i < businesses.Count; i++)
+                {
+                    businessDTOs[i].Beers = new List<Beer>();
+                    foreach (BusinessBeer busBeer in businesses[i].BusinessBeers)
+                    {
+                        businessDTOs[i].Beers.Add(await _beerRepository.GetBeer(busBeer.BeerId));
+                    }
+                }
+
+                return businessDTOs;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task AddBusiness(AddBusinessDTO business)
+        {
+            try
+            {
+                Guid newBusinessGuid = Guid.NewGuid();
+                List<BusinessBeer> businessBeers = new List<BusinessBeer>();
+
+                foreach (Guid beerId in business.Beers)
+                {
+                    businessBeers.Add(new BusinessBeer { BeerId = beerId, BusinessId = newBusinessGuid });
+                }
+
+                Business newBusiness = _mapper.Map<Business>(business);
+                newBusiness.BusinessId = newBusinessGuid;
+                newBusiness.BusinessBeers = businessBeers;
+
+                await _businessRepository.AddBusiness(newBusiness);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task UpdateBusiness(UpdateBusinessDTO business)
+        {
+            try
+            {
+                List<BusinessBeer> businessBeers = new List<BusinessBeer>();
+
+                foreach (Guid beerId in business.Beers)
+                {
+                    businessBeers.Add(new BusinessBeer { BeerId = beerId, BusinessId = business.BusinessId });
+                }
+
+                Business updateBusiness = _mapper.Map<Business>(business);
+                updateBusiness.BusinessBeers = businessBeers;
+
                 await _businessRepository.UpdateBusiness(updateBusiness);
             }
             catch (Exception)

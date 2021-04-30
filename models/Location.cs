@@ -13,5 +13,7 @@ namespace BeerApi.Models
 
         [Required]
         public int Postcode { get; set; }
+
+        List<Business> Businesses {get; set;}
     }
 }

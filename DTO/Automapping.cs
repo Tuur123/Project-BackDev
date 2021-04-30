@@ -15,6 +15,8 @@ namespace BeerApi.DTO
             CreateMap<LocationDTO, Location>();
             CreateMap<Business, BusinessDTO>();
             CreateMap<BusinessDTO, Business>();
+            CreateMap<AddBusinessDTO, Business>();
+            CreateMap<UpdateBusinessDTO, Business>();
         }
     }
 }

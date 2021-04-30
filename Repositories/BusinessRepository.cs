@@ -35,7 +35,7 @@ namespace BeerApi.Repositories
             .Include(b => b.Location)
             .Where(b => b.BusinessId == businessId)
             .SingleOrDefaultAsync();
-            
+
             return business;
         }
 
@@ -52,13 +52,20 @@ namespace BeerApi.Repositories
 
         public async Task UpdateBusiness(Business business)
         {
+
             Business updateBusiness = await _context.Businesses.Where(b => b.BusinessId == business.BusinessId).SingleOrDefaultAsync();
 
-            updateBusiness.Email = business.Email;
-            updateBusiness.LocationId = business.LocationId;
-            updateBusiness.Name = business.Name;
-            updateBusiness.Type = business.Type;
-            updateBusiness.BusinessBeers = business.BusinessBeers;
+            // oude relaties verwijderen
+            _context.BusinessBeers.RemoveRange(await _context.BusinessBeers.Where(b => b.BusinessId == updateBusiness.BusinessId).ToListAsync());
+
+            // business updaten
+            updateBusiness = business;
+
+            // nieuwe relaties toevoegen
+            foreach (BusinessBeer businessBeer in updateBusiness.BusinessBeers)
+            {
+                await _context.BusinessBeers.AddAsync(businessBeer);
+            }
 
             await _context.SaveChangesAsync();
         }

@@ -15,6 +15,7 @@ namespace BeerApi.DataContext
     {
         DbSet<Beer> Beers { get; set; }
         DbSet<Business> Businesses { get; set; }
+        DbSet<BusinessBeer> BusinessBeers { get; set; }
         DbSet<Location> Locations { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
@@ -24,6 +25,7 @@ namespace BeerApi.DataContext
 
         public DbSet<Beer> Beers { get; set; }
         public DbSet<Business> Businesses { get; set; }
+        public DbSet<BusinessBeer> BusinessBeers { get; set; }
         public DbSet<Location> Locations { get; set; }
 
         public BeerContext(DbContextOptions<BeerContext> options, IOptions<ConnectionStrings> ConnectionStrings) : base(options)
