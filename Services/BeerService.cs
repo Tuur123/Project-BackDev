@@ -1,8 +1,9 @@
-using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using AutoMapper;
+
 using BeerApi.DTO;
 using BeerApi.Models;
 using BeerApi.Repositories;
@@ -12,21 +13,21 @@ namespace BeerApi.Services
     public interface IBeerService
     {
         // Beers
-        Task AddBeer(BeerDTO beer);
+        Task<BeerDTO> AddBeer(BeerDTO beer);
         Task<BeerDTO> DeleteBeer(Guid beerId);
         Task<BeerDTO> GetBeer(Guid beerId);
         Task<List<BeerDTO>> GetBeers();
         Task<BeerDTO> UpdateBeer(BeerDTO beer);
 
         // Businesses
-        Task AddBusiness(AddBusinessDTO business);
+        Task<BusinessDTO> AddBusiness(AddBusinessDTO business);
         Task<BusinessDTO> DeleteBusiness(Guid businessId);
         Task<BusinessDTO> GetBusiness(Guid businessId);
         Task<List<BusinessDTO>> GetBusinesses();
         Task<BusinessDTO> UpdateBusiness(UpdateBusinessDTO business);
 
         // Locations
-        Task AddLocation(LocationDTO location);
+        Task<LocationDTO> AddLocation(LocationDTO location);
         Task<LocationDTO> DeleteLocation(Guid locationId);
         Task<LocationDTO> GetLocation(Guid locationId);
         Task<List<LocationDTO>> GetLocations();
@@ -72,12 +73,12 @@ namespace BeerApi.Services
             }
         }
 
-        public async Task AddBeer(BeerDTO beer)
+        public async Task<BeerDTO> AddBeer(BeerDTO beer)
         {
             try
             {
                 Beer newBeer = _mapper.Map<Beer>(beer);
-                await _beerRepository.AddBeer(newBeer);
+                return _mapper.Map<BeerDTO>(await _beerRepository.AddBeer(newBeer));
             }
             catch (Exception)
             {
@@ -164,7 +165,7 @@ namespace BeerApi.Services
             }
         }
 
-        public async Task AddBusiness(AddBusinessDTO business)
+        public async Task<BusinessDTO> AddBusiness(AddBusinessDTO business)
         {
             try
             {
@@ -173,6 +174,10 @@ namespace BeerApi.Services
 
                 foreach (Guid beerId in business.Beers)
                 {
+                    if (await _beerRepository.GetBeer(beerId) == null)
+                    {
+                        return null;
+                    }
                     businessBeers.Add(new BusinessBeer { BeerId = beerId, BusinessId = newBusinessGuid });
                 }
 
@@ -180,7 +185,12 @@ namespace BeerApi.Services
                 newBusiness.BusinessId = newBusinessGuid;
                 newBusiness.BusinessBeers = businessBeers;
 
-                await _businessRepository.AddBusiness(newBusiness);
+                if (await _locationRepository.GetLocation(newBusiness.LocationId) == null)
+                {
+                    return null;
+                }
+
+                return _mapper.Map<BusinessDTO>(await _businessRepository.AddBusiness(newBusiness));
             }
             catch (Exception)
             {
@@ -248,12 +258,12 @@ namespace BeerApi.Services
             }
         }
 
-        public async Task AddLocation(LocationDTO location)
+        public async Task<LocationDTO> AddLocation(LocationDTO location)
         {
             try
             {
                 Location newLocation = _mapper.Map<Location>(location);
-                await _locationRepository.AddLocation(newLocation);
+                return _mapper.Map<LocationDTO>(await _locationRepository.AddLocation(newLocation));
             }
             catch (Exception)
             {

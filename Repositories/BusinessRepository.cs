@@ -12,7 +12,7 @@ namespace BeerApi.Repositories
 {
     public interface IBusinessRepository
     {
-        Task AddBusiness(Business business);
+        Task<Business> AddBusiness(Business business);
         Task<Business> DeleteBusiness(Guid businessId);
         Task<Business> GetBusiness(Guid businessId);
         Task<List<Business>> GetBusinesses();
@@ -44,16 +44,18 @@ namespace BeerApi.Repositories
             return await _context.Businesses.Include(b => b.BusinessBeers).Include(b => b.Location).ToListAsync();
         }
 
-        public async Task AddBusiness(Business business)
+        public async Task<Business> AddBusiness(Business business)
         {
             await _context.Businesses.AddAsync(business);
             await _context.SaveChangesAsync();
+
+            return business;
         }
 
-        public async Task<Business> UpdateBusiness(Business business)
+        public async Task<Business> UpdateBusiness(Business newBusiness)
         {
 
-            Business updateBusiness = await _context.Businesses.Where(b => b.BusinessId == business.BusinessId).SingleOrDefaultAsync();
+            Business updateBusiness = await _context.Businesses.Where(b => b.BusinessId == newBusiness.BusinessId).SingleOrDefaultAsync();
 
             if (updateBusiness == null)
             {
@@ -64,10 +66,12 @@ namespace BeerApi.Repositories
             _context.BusinessBeers.RemoveRange(await _context.BusinessBeers.Where(b => b.BusinessId == updateBusiness.BusinessId).ToListAsync());
 
             // business updaten
-            updateBusiness = business;
+            updateBusiness.Name = newBusiness.Name;
+            updateBusiness.Type = newBusiness.Type;
+            updateBusiness.Email = newBusiness.Email;
 
             // nieuwe relaties toevoegen
-            foreach (BusinessBeer businessBeer in updateBusiness.BusinessBeers)
+            foreach (BusinessBeer businessBeer in newBusiness.BusinessBeers)
             {
                 await _context.BusinessBeers.AddAsync(businessBeer);
             }

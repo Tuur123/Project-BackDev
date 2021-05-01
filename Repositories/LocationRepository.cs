@@ -1,8 +1,6 @@
-using System.Security.Cryptography.X509Certificates;
-using System.Net;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +12,7 @@ namespace BeerApi.Repositories
 {
     public interface ILocationRepository
     {
-        Task AddLocation(Location location);
+        Task<Location> AddLocation(Location location);
         Task<Location> DeleteLocation(Guid locationId);
         Task<Location> GetLocation(Guid locationId);
         Task<List<Location>> GetLocations();
@@ -40,10 +38,12 @@ namespace BeerApi.Repositories
             return await _context.Locations.ToListAsync();
         }
 
-        public async Task AddLocation(Location location)
+        public async Task<Location> AddLocation(Location location)
         {
             await _context.Locations.AddAsync(location);
             await _context.SaveChangesAsync();
+
+            return location;
         }
 
         public async Task<Location> UpdateLocation(Location location)

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using BeerApi.Models;
+
 using BeerApi.DTO;
+using BeerApi.Models;
 using BeerApi.Services;
 
 namespace BeerApi.Controllers
@@ -94,11 +94,11 @@ namespace BeerApi.Controllers
         {
             try
             {
-                if (await _beerService.UpdateBeer(beer) == null)
+                if (await _beerService.UpdateBeer(beer) != null)
                 {
-                    return new StatusCodeResult(404);
+                    return new StatusCodeResult(200);
                 }
-                return new StatusCodeResult(200);
+                return new StatusCodeResult(404);
             }
             catch (Exception)
             {
@@ -180,8 +180,14 @@ namespace BeerApi.Controllers
         {
             try
             {
-                await _beerService.AddBusiness(business);
-                return new StatusCodeResult(200);
+                if (await _beerService.AddBusiness(business) != null)
+                {
+                    return new StatusCodeResult(200);
+                }
+                else
+                {
+                    return new StatusCodeResult(404);
+                }
             }
             catch (Exception)
             {
@@ -286,8 +292,14 @@ namespace BeerApi.Controllers
         {
             try
             {
-                await _beerService.AddLocation(location);
-                return new StatusCodeResult(200);
+                if (await _beerService.AddLocation(location) != null)
+                {
+                    return new StatusCodeResult(200);
+                }
+                else
+                {
+                    return new StatusCodeResult(404);
+                }
             }
             catch (Exception)
             {

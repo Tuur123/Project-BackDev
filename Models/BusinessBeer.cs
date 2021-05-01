@@ -1,7 +1,4 @@
-using System.Security.Cryptography.X509Certificates;
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 
 namespace BeerApi.Models
 {

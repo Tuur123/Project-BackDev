@@ -12,7 +12,7 @@ namespace BeerApi.Repositories
 {
     public interface IBeerRepository
     {
-        Task AddBeer(Beer beer);
+        Task<Beer> AddBeer(Beer beer);
         Task<Beer> DeleteBeer(Guid beerId);
         Task<Beer> GetBeer(Guid beerId);
         Task<List<Beer>> GetBeers();
@@ -38,10 +38,12 @@ namespace BeerApi.Repositories
             return await _context.Beers.Include(b => b.BusinessBeers).ToListAsync();
         }
 
-        public async Task AddBeer(Beer beer)
+        public async Task<Beer> AddBeer(Beer beer)
         {
             await _context.Beers.AddAsync(beer);
             await _context.SaveChangesAsync();
+
+            return beer;
         }
 
         public async Task<Beer> UpdateBeer(Beer beer)

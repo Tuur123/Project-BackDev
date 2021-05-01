@@ -1,8 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-using BeerApi.Models;
-
 namespace BeerApi.DTO
 {
     public class BeerDTO
