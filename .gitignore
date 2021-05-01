@@ -1,9 +1,8 @@
 bin
 data
 obj
-obj\*
 Migrations
 Cert
 .vscode
 Properties
-Properties/launchSettings.json
+
