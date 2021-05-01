@@ -41,7 +41,7 @@ namespace BeerApi.Controllers
                 }
                 else
                 {
-                    return new StatusCodeResult(404);
+                    return new StatusCodeResult(400);
                 }
 
             }
@@ -65,7 +65,7 @@ namespace BeerApi.Controllers
                 }
                 else
                 {
-                    return new StatusCodeResult(404);
+                    return new StatusCodeResult(400);
                 }
             }
             catch (Exception)
@@ -99,7 +99,7 @@ namespace BeerApi.Controllers
                 {
                     return new OkObjectResult(updatedBeer);
                 }
-                return new StatusCodeResult(404);
+                return new StatusCodeResult(400);
             }
             catch (Exception)
             {
@@ -115,7 +115,7 @@ namespace BeerApi.Controllers
             {
                 if (await _beerService.DeleteBeer(beerId) == null)
                 {
-                    return new StatusCodeResult(404);
+                    return new StatusCodeResult(400);
                 }
                 else
                 {
@@ -144,7 +144,7 @@ namespace BeerApi.Controllers
                 }
                 else
                 {
-                    return new StatusCodeResult(404);
+                    return new StatusCodeResult(400);
                 }
             }
             catch (Exception)
@@ -166,7 +166,7 @@ namespace BeerApi.Controllers
                 }
                 else
                 {
-                    return new StatusCodeResult(404);
+                    return new StatusCodeResult(400);
                 }
             }
             catch (Exception)
@@ -188,7 +188,7 @@ namespace BeerApi.Controllers
                 }
                 else
                 {
-                    return new StatusCodeResult(404);
+                    return new StatusCodeResult(400);
                 }
             }
             catch (Exception)
@@ -210,7 +210,7 @@ namespace BeerApi.Controllers
                 }
                 else
                 {
-                    return new StatusCodeResult(404);
+                    return new StatusCodeResult(400);
                 }
             }
             catch (Exception)
@@ -227,7 +227,7 @@ namespace BeerApi.Controllers
             {
                 if (await _beerService.DeleteBusiness(businessId) == null)
                 {
-                    return new StatusCodeResult(404);
+                    return new StatusCodeResult(400);
                 }
                 else
                 {
@@ -257,7 +257,7 @@ namespace BeerApi.Controllers
                 }
                 else
                 {
-                    return new StatusCodeResult(404);
+                    return new StatusCodeResult(400);
                 }
             }
             catch (Exception)
@@ -280,7 +280,7 @@ namespace BeerApi.Controllers
                 }
                 else
                 {
-                    return new StatusCodeResult(404);
+                    return new StatusCodeResult(400);
                 }
             }
             catch (Exception)
@@ -302,7 +302,7 @@ namespace BeerApi.Controllers
                 }
                 else
                 {
-                    return new StatusCodeResult(404);
+                    return new StatusCodeResult(400);
                 }
             }
             catch (Exception)
@@ -324,7 +324,7 @@ namespace BeerApi.Controllers
                 }
                 else
                 {
-                    return new StatusCodeResult(404);
+                    return new StatusCodeResult(400);
                 }
             }
             catch (Exception)
@@ -341,7 +341,7 @@ namespace BeerApi.Controllers
             {
                 if (await _beerService.DeleteLocation(locationId) == null)
                 {
-                    return new StatusCodeResult(404);
+                    return new StatusCodeResult(400);
                 }
                 else
                 {
