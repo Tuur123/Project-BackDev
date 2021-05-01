@@ -13,21 +13,21 @@ namespace BeerApi.Services
     {
         // Beers
         Task AddBeer(BeerDTO beer);
-        Task DeleteBeer(Guid beerId);
+        Task<BeerDTO> DeleteBeer(Guid beerId);
         Task<BeerDTO> GetBeer(Guid beerId);
         Task<List<BeerDTO>> GetBeers();
         Task<BeerDTO> UpdateBeer(BeerDTO beer);
 
         // Businesses
         Task AddBusiness(AddBusinessDTO business);
-        Task DeleteBusiness(Guid businessId);
+        Task<BusinessDTO> DeleteBusiness(Guid businessId);
         Task<BusinessDTO> GetBusiness(Guid businessId);
         Task<List<BusinessDTO>> GetBusinesses();
         Task<BusinessDTO> UpdateBusiness(UpdateBusinessDTO business);
 
         // Locations
         Task AddLocation(LocationDTO location);
-        Task DeleteLocation(Guid locationId);
+        Task<LocationDTO> DeleteLocation(Guid locationId);
         Task<LocationDTO> GetLocation(Guid locationId);
         Task<List<LocationDTO>> GetLocations();
         Task<LocationDTO> UpdateLocation(Location location);
@@ -98,11 +98,12 @@ namespace BeerApi.Services
             }
         }
 
-        public async Task DeleteBeer(Guid beerId)
+        public async Task<BeerDTO> DeleteBeer(Guid beerId)
         {
             try
             {
-                await _beerRepository.DeleteBeer(beerId);
+                Beer beer = await _beerRepository.DeleteBeer(beerId);
+                return _mapper.Map<BeerDTO>(beer);
             }
             catch (Exception)
             {
@@ -209,11 +210,11 @@ namespace BeerApi.Services
             }
         }
 
-        public async Task DeleteBusiness(Guid businessId)
+        public async Task<BusinessDTO> DeleteBusiness(Guid businessId)
         {
             try
             {
-                await _businessRepository.DeleteBusiness(businessId);
+                return _mapper.Map<BusinessDTO>(await _businessRepository.DeleteBusiness(businessId));
             }
             catch (Exception)
             {
@@ -274,11 +275,11 @@ namespace BeerApi.Services
             }
         }
 
-        public async Task DeleteLocation(Guid locationId)
+        public async Task<LocationDTO> DeleteLocation(Guid locationId)
         {
             try
             {
-                await _locationRepository.DeleteLocation(locationId);
+                return _mapper.Map<LocationDTO>(await _locationRepository.DeleteLocation(locationId));
             }
             catch (Exception)
             {

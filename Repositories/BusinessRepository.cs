@@ -13,7 +13,7 @@ namespace BeerApi.Repositories
     public interface IBusinessRepository
     {
         Task AddBusiness(Business business);
-        Task DeleteBusiness(Guid businessId);
+        Task<Business> DeleteBusiness(Guid businessId);
         Task<Business> GetBusiness(Guid businessId);
         Task<List<Business>> GetBusinesses();
         Task<Business> UpdateBusiness(Business business);
@@ -77,12 +77,19 @@ namespace BeerApi.Repositories
             return await GetBusiness(updateBusiness.BusinessId);
         }
 
-        public async Task DeleteBusiness(Guid businessId)
+        public async Task<Business> DeleteBusiness(Guid businessId)
         {
             Business deleteBusiness = await _context.Businesses.Where(b => b.BusinessId == businessId).SingleOrDefaultAsync();
 
+            if (deleteBusiness == null)
+            {
+                return null;
+            }
+
             _context.Businesses.Remove(deleteBusiness);
             await _context.SaveChangesAsync();
+
+            return deleteBusiness;
         }
     }
 }

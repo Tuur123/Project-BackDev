@@ -13,7 +13,7 @@ namespace BeerApi.Repositories
     public interface IBeerRepository
     {
         Task AddBeer(Beer beer);
-        Task DeleteBeer(Guid beerId);
+        Task<Beer> DeleteBeer(Guid beerId);
         Task<Beer> GetBeer(Guid beerId);
         Task<List<Beer>> GetBeers();
         Task<Beer> UpdateBeer(Beer beer);
@@ -63,11 +63,19 @@ namespace BeerApi.Repositories
             return beerToUpdate;
         }
 
-        public async Task DeleteBeer(Guid beerId)
+        public async Task<Beer> DeleteBeer(Guid beerId)
         {
             Beer deleteBeer = await _context.Beers.Where(b => b.BeerId == beerId).SingleOrDefaultAsync();
+
+            if (deleteBeer == null)
+            {
+                return null;
+            }
+
             _context.Beers.Remove(deleteBeer);
             await _context.SaveChangesAsync();
+
+            return deleteBeer;
         }
     }
 }

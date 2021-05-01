@@ -94,9 +94,7 @@ namespace BeerApi.Controllers
         {
             try
             {
-                BeerDTO updatedBeer = await _beerService.UpdateBeer(beer);
-
-                if (updatedBeer == null)
+                if (await _beerService.UpdateBeer(beer) == null)
                 {
                     return new StatusCodeResult(404);
                 }
@@ -114,8 +112,14 @@ namespace BeerApi.Controllers
         {
             try
             {
-                await _beerService.DeleteBeer(beerId);
-                return new StatusCodeResult(200);
+                if (await _beerService.DeleteBeer(beerId) == null)
+                {
+                    return new StatusCodeResult(404);
+                }
+                else
+                {
+                    return new StatusCodeResult(200);
+                }
             }
             catch (Exception)
             {
@@ -191,9 +195,7 @@ namespace BeerApi.Controllers
         {
             try
             {
-                BusinessDTO updatedBusiness = await _beerService.UpdateBusiness(business);
-
-                if (updatedBusiness == null)
+                if (await _beerService.UpdateBusiness(business) == null)
                 {
                     return new StatusCodeResult(404);
                 }
@@ -214,8 +216,14 @@ namespace BeerApi.Controllers
         {
             try
             {
-                await _beerService.DeleteBusiness(businessId);
-                return new StatusCodeResult(200);
+                if (await _beerService.DeleteBusiness(businessId) == null)
+                {
+                    return new StatusCodeResult(404);
+                }
+                else
+                {
+                    return new StatusCodeResult(200);
+                }
             }
             catch (Exception)
             {
@@ -293,9 +301,7 @@ namespace BeerApi.Controllers
         {
             try
             {
-                LocationDTO updatedLocation = await _beerService.UpdateLocation(location);
-
-                if (updatedLocation != null)
+                if (await _beerService.UpdateLocation(location) != null)
                 {
                     return new StatusCodeResult(200);
                 }
@@ -316,8 +322,14 @@ namespace BeerApi.Controllers
         {
             try
             {
-                await _beerService.DeleteLocation(locationId);
-                return new StatusCodeResult(200);
+                if (await _beerService.DeleteLocation(locationId) == null)
+                {
+                    return new StatusCodeResult(404);
+                }
+                else
+                {
+                    return new StatusCodeResult(200);
+                }
             }
             catch (Exception)
             {

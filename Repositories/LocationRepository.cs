@@ -15,7 +15,7 @@ namespace BeerApi.Repositories
     public interface ILocationRepository
     {
         Task AddLocation(Location location);
-        Task DeleteLocation(Guid locationId);
+        Task<Location> DeleteLocation(Guid locationId);
         Task<Location> GetLocation(Guid locationId);
         Task<List<Location>> GetLocations();
         Task<Location> UpdateLocation(Location location);
@@ -54,7 +54,7 @@ namespace BeerApi.Repositories
             {
                 return null;
             }
-            
+
             updateLocation.City = location.City;
             updateLocation.Postcode = location.Postcode;
 
@@ -63,11 +63,19 @@ namespace BeerApi.Repositories
             return updateLocation;
         }
 
-        public async Task DeleteLocation(Guid locationId)
+        public async Task<Location> DeleteLocation(Guid locationId)
         {
             Location deleteLocation = await _context.Locations.Where(l => l.LocationId == locationId).SingleOrDefaultAsync();
+
+            if (deleteLocation == null)
+            {
+                return null;
+            }
+
             _context.Locations.Remove(deleteLocation);
             await _context.SaveChangesAsync();
+
+            return deleteLocation;
         }
     }
 }
