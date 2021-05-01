@@ -10,7 +10,6 @@ namespace BeerApi.DTO
         {
             CreateMap<Beer, BeerDTO>();
             CreateMap<BeerDTO, Beer>();
-            CreateMap<BusinessBeer, BusinessBeerDTO>();
             CreateMap<Location, LocationDTO>();
             CreateMap<LocationDTO, Location>();
             CreateMap<Business, BusinessDTO>();

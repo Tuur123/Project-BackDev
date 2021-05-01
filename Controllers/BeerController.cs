@@ -25,14 +25,24 @@ namespace BeerApi.Controllers
         }
 
         #region Beers
-        
+
         [HttpGet]
         [Route("beers/{beerId}")]
         public async Task<ActionResult<BeerDTO>> GetBeers(Guid beerId)
         {
             try
             {
-                return new OkObjectResult(await _beerService.GetBeer(beerId));
+                BeerDTO beer = await _beerService.GetBeer(beerId);
+
+                if (beer != null)
+                {
+                    return new OkObjectResult(beer);
+                }
+                else
+                {
+                    return new StatusCodeResult(404);
+                }
+
             }
             catch (Exception)
             {
@@ -46,7 +56,16 @@ namespace BeerApi.Controllers
         {
             try
             {
-                return new OkObjectResult(await _beerService.GetBeers());
+                List<BeerDTO> beers = await _beerService.GetBeers();
+
+                if (beers != null)
+                {
+                    return new OkObjectResult(beers);
+                }
+                else
+                {
+                    return new StatusCodeResult(404);
+                }
             }
             catch (Exception)
             {
@@ -108,7 +127,15 @@ namespace BeerApi.Controllers
         {
             try
             {
-                return new OkObjectResult(await _beerService.GetBusiness(businessId));
+                BusinessDTO business = await _beerService.GetBusiness(businessId);
+                if (business != null)
+                {
+                    return new OkObjectResult(business);
+                }
+                else
+                {
+                    return new StatusCodeResult(404);
+                }
             }
             catch (Exception)
             {
@@ -122,7 +149,15 @@ namespace BeerApi.Controllers
         {
             try
             {
-                return new OkObjectResult(await _beerService.GetBusinesses());
+                List<BusinessDTO> businesses = await _beerService.GetBusinesses();
+                if (businesses != null)
+                {
+                    return new OkObjectResult(businesses);
+                }
+                else
+                {
+                    return new StatusCodeResult(404);
+                }
             }
             catch (Exception)
             {
@@ -184,7 +219,16 @@ namespace BeerApi.Controllers
         {
             try
             {
-                return new OkObjectResult(await _beerService.GetLocation(locationId));
+                LocationDTO location = await _beerService.GetLocation(locationId);
+                
+                if (location != null)
+                {
+                    return new OkObjectResult(location);
+                }
+                else
+                {
+                    return new StatusCodeResult(404);
+                }
             }
             catch (Exception)
             {
@@ -198,7 +242,16 @@ namespace BeerApi.Controllers
         {
             try
             {
-                return new OkObjectResult(await _beerService.GetLocations());
+                List<LocationDTO> locations = await _beerService.GetLocations();
+
+                if (locations != null)
+                {
+                    return new OkObjectResult(locations);
+                }
+                else
+                {
+                    return new StatusCodeResult(404);
+                }
             }
             catch (Exception)
             {

@@ -117,6 +117,12 @@ namespace BeerApi.Services
             try
             {
                 Business business = await _businessRepository.GetBusiness(businessId);
+
+                if (business == null)
+                {
+                    return null;
+                }
+
                 BusinessDTO businessDTO = _mapper.Map<BusinessDTO>(business);
                 businessDTO.Beers = new List<Beer>();
 
