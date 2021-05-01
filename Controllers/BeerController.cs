@@ -80,7 +80,7 @@ namespace BeerApi.Controllers
             try
             {
                 await _beerService.AddBeer(beer);
-                return new OkObjectResult(200);
+                return new StatusCodeResult(200);
             }
             catch (Exception)
             {
@@ -94,8 +94,13 @@ namespace BeerApi.Controllers
         {
             try
             {
-                await _beerService.UpdateBeer(beer);
-                return new OkObjectResult(200);
+                BeerDTO updatedBeer = await _beerService.UpdateBeer(beer);
+
+                if (updatedBeer == null)
+                {
+                    return new StatusCodeResult(404);
+                }
+                return new StatusCodeResult(200);
             }
             catch (Exception)
             {
@@ -110,7 +115,7 @@ namespace BeerApi.Controllers
             try
             {
                 await _beerService.DeleteBeer(beerId);
-                return new OkObjectResult(200);
+                return new StatusCodeResult(200);
             }
             catch (Exception)
             {
@@ -172,7 +177,7 @@ namespace BeerApi.Controllers
             try
             {
                 await _beerService.AddBusiness(business);
-                return new OkObjectResult(200);
+                return new StatusCodeResult(200);
             }
             catch (Exception)
             {
@@ -186,8 +191,16 @@ namespace BeerApi.Controllers
         {
             try
             {
-                await _beerService.UpdateBusiness(business);
-                return new OkObjectResult(200);
+                BusinessDTO updatedBusiness = await _beerService.UpdateBusiness(business);
+
+                if (updatedBusiness == null)
+                {
+                    return new StatusCodeResult(404);
+                }
+                else
+                {
+                    return new StatusCodeResult(200);
+                }
             }
             catch (Exception)
             {
@@ -202,7 +215,7 @@ namespace BeerApi.Controllers
             try
             {
                 await _beerService.DeleteBusiness(businessId);
-                return new OkObjectResult(200);
+                return new StatusCodeResult(200);
             }
             catch (Exception)
             {
@@ -220,7 +233,7 @@ namespace BeerApi.Controllers
             try
             {
                 LocationDTO location = await _beerService.GetLocation(locationId);
-                
+
                 if (location != null)
                 {
                     return new OkObjectResult(location);
@@ -266,7 +279,7 @@ namespace BeerApi.Controllers
             try
             {
                 await _beerService.AddLocation(location);
-                return new OkObjectResult(200);
+                return new StatusCodeResult(200);
             }
             catch (Exception)
             {
@@ -275,13 +288,21 @@ namespace BeerApi.Controllers
         }
 
         [HttpPut]
-        [Route("locations/{locationId}")]
+        [Route("locations")]
         public async Task<ActionResult> UpdateLocation(Location location)
         {
             try
             {
-                await _beerService.UpdateLocation(location);
-                return new OkObjectResult(200);
+                LocationDTO updatedLocation = await _beerService.UpdateLocation(location);
+
+                if (updatedLocation != null)
+                {
+                    return new StatusCodeResult(200);
+                }
+                else
+                {
+                    return new StatusCodeResult(404);
+                }
             }
             catch (Exception)
             {
@@ -296,7 +317,7 @@ namespace BeerApi.Controllers
             try
             {
                 await _beerService.DeleteLocation(locationId);
-                return new OkObjectResult(200);
+                return new StatusCodeResult(200);
             }
             catch (Exception)
             {

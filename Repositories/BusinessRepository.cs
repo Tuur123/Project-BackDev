@@ -16,7 +16,7 @@ namespace BeerApi.Repositories
         Task DeleteBusiness(Guid businessId);
         Task<Business> GetBusiness(Guid businessId);
         Task<List<Business>> GetBusinesses();
-        Task UpdateBusiness(Business business);
+        Task<Business> UpdateBusiness(Business business);
     }
 
     public class BusinessRepository : IBusinessRepository
@@ -50,10 +50,15 @@ namespace BeerApi.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateBusiness(Business business)
+        public async Task<Business> UpdateBusiness(Business business)
         {
 
             Business updateBusiness = await _context.Businesses.Where(b => b.BusinessId == business.BusinessId).SingleOrDefaultAsync();
+
+            if (updateBusiness == null)
+            {
+                return null;
+            }
 
             // oude relaties verwijderen
             _context.BusinessBeers.RemoveRange(await _context.BusinessBeers.Where(b => b.BusinessId == updateBusiness.BusinessId).ToListAsync());
@@ -68,6 +73,8 @@ namespace BeerApi.Repositories
             }
 
             await _context.SaveChangesAsync();
+
+            return await GetBusiness(updateBusiness.BusinessId);
         }
 
         public async Task DeleteBusiness(Guid businessId)

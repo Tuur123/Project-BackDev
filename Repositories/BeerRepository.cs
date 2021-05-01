@@ -16,7 +16,7 @@ namespace BeerApi.Repositories
         Task DeleteBeer(Guid beerId);
         Task<Beer> GetBeer(Guid beerId);
         Task<List<Beer>> GetBeers();
-        Task UpdateBeer(Beer beer);
+        Task<Beer> UpdateBeer(Beer beer);
     }
 
     public class BeerRepository : IBeerRepository
@@ -44,9 +44,14 @@ namespace BeerApi.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateBeer(Beer beer)
+        public async Task<Beer> UpdateBeer(Beer beer)
         {
             Beer beerToUpdate = await _context.Beers.Where(b => b.BeerId == beer.BeerId).SingleOrDefaultAsync();
+
+            if (beerToUpdate == null)
+            {
+                return null;
+            }
 
             beerToUpdate.AlchoholPercentage = beer.AlchoholPercentage;
             beerToUpdate.Brewer = beer.Brewer;
@@ -54,6 +59,8 @@ namespace BeerApi.Repositories
             beerToUpdate.BusinessBeers = beer.BusinessBeers;
 
             await _context.SaveChangesAsync();
+
+            return beerToUpdate;
         }
 
         public async Task DeleteBeer(Guid beerId)

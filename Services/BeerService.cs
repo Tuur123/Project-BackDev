@@ -16,21 +16,21 @@ namespace BeerApi.Services
         Task DeleteBeer(Guid beerId);
         Task<BeerDTO> GetBeer(Guid beerId);
         Task<List<BeerDTO>> GetBeers();
-        Task UpdateBeer(BeerDTO beer);
+        Task<BeerDTO> UpdateBeer(BeerDTO beer);
 
         // Businesses
         Task AddBusiness(AddBusinessDTO business);
         Task DeleteBusiness(Guid businessId);
         Task<BusinessDTO> GetBusiness(Guid businessId);
         Task<List<BusinessDTO>> GetBusinesses();
-        Task UpdateBusiness(UpdateBusinessDTO business);
+        Task<BusinessDTO> UpdateBusiness(UpdateBusinessDTO business);
 
         // Locations
         Task AddLocation(LocationDTO location);
         Task DeleteLocation(Guid locationId);
         Task<LocationDTO> GetLocation(Guid locationId);
         Task<List<LocationDTO>> GetLocations();
-        Task UpdateLocation(Location location);
+        Task<LocationDTO> UpdateLocation(Location location);
     }
     public class BeerService : IBeerService
     {
@@ -85,12 +85,12 @@ namespace BeerApi.Services
             }
         }
 
-        public async Task UpdateBeer(BeerDTO beer)
+        public async Task<BeerDTO> UpdateBeer(BeerDTO beer)
         {
             try
             {
                 Beer updateBeer = _mapper.Map<Beer>(beer);
-                await _beerRepository.UpdateBeer(updateBeer);
+                return _mapper.Map<BeerDTO>(await _beerRepository.UpdateBeer(updateBeer));
             }
             catch (Exception)
             {
@@ -187,7 +187,7 @@ namespace BeerApi.Services
             }
         }
 
-        public async Task UpdateBusiness(UpdateBusinessDTO business)
+        public async Task<BusinessDTO> UpdateBusiness(UpdateBusinessDTO business)
         {
             try
             {
@@ -201,7 +201,7 @@ namespace BeerApi.Services
                 Business updateBusiness = _mapper.Map<Business>(business);
                 updateBusiness.BusinessBeers = businessBeers;
 
-                await _businessRepository.UpdateBusiness(updateBusiness);
+                return _mapper.Map<BusinessDTO>(await _businessRepository.UpdateBusiness(updateBusiness));
             }
             catch (Exception)
             {
@@ -260,13 +260,13 @@ namespace BeerApi.Services
             }
         }
 
-        public async Task UpdateLocation(Location location)
+        public async Task<LocationDTO> UpdateLocation(Location location)
         {
             Location updateLocation = _mapper.Map<Location>(location);
 
             try
             {
-                await _locationRepository.UpdateLocation(updateLocation);
+                return _mapper.Map<LocationDTO>(await _locationRepository.UpdateLocation(updateLocation));
             }
             catch (Exception)
             {
