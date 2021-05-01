@@ -79,8 +79,7 @@ namespace BeerApi.Controllers
         {
             try
             {
-                await _beerService.AddBeer(beer);
-                return new StatusCodeResult(200);
+                return new OkObjectResult(await _beerService.AddBeer(beer));
             }
             catch (Exception)
             {
@@ -94,9 +93,10 @@ namespace BeerApi.Controllers
         {
             try
             {
-                if (await _beerService.UpdateBeer(beer) != null)
+                BeerDTO updatedBeer = await _beerService.UpdateBeer(beer);
+                if (updatedBeer != null)
                 {
-                    return new StatusCodeResult(200);
+                    return new OkObjectResult(updatedBeer);
                 }
                 return new StatusCodeResult(404);
             }
@@ -180,9 +180,10 @@ namespace BeerApi.Controllers
         {
             try
             {
-                if (await _beerService.AddBusiness(business) != null)
+                BusinessDTO newBusiness = await _beerService.AddBusiness(business);
+                if (newBusiness != null)
                 {
-                    return new StatusCodeResult(200);
+                    return new OkObjectResult(newBusiness);
                 }
                 else
                 {
@@ -201,13 +202,14 @@ namespace BeerApi.Controllers
         {
             try
             {
-                if (await _beerService.UpdateBusiness(business) == null)
+                BusinessDTO updatedBusiness = await _beerService.UpdateBusiness(business);
+                if (updatedBusiness != null)
                 {
-                    return new StatusCodeResult(404);
+                    return new OkObjectResult(updatedBusiness);
                 }
                 else
                 {
-                    return new StatusCodeResult(200);
+                    return new StatusCodeResult(404);
                 }
             }
             catch (Exception)
@@ -292,9 +294,10 @@ namespace BeerApi.Controllers
         {
             try
             {
-                if (await _beerService.AddLocation(location) != null)
+                LocationDTO newLocation = await _beerService.AddLocation(location);
+                if (newLocation != null)
                 {
-                    return new StatusCodeResult(200);
+                    return new OkObjectResult(newLocation);
                 }
                 else
                 {
@@ -313,9 +316,10 @@ namespace BeerApi.Controllers
         {
             try
             {
-                if (await _beerService.UpdateLocation(location) != null)
+                LocationDTO updatedLocation = await _beerService.UpdateLocation(location);
+                if (updatedLocation != null)
                 {
-                    return new StatusCodeResult(200);
+                    return new OkObjectResult(updatedLocation);
                 }
                 else
                 {

@@ -5,3 +5,5 @@ Migrations
 Cert
 .vscode
 Properties
+BeerTest/coverage.json
+BeerTest/TestResults
